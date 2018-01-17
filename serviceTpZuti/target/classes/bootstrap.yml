@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: service-teacherspace-zuti # 对应config server所获取的配置文件的{application}
+#zookeeper:
+#  quorum: 10.10.7.1,10.10.7.2,10.10.7.3,10.10.7.4,10.10.7.5
+#  port: 2181
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true             # 表示使用服务发现组件中的Config Server，而不自己指定Config Server的uri，默认false
+        serviceId: config-server  # 指定Config Server在服务发现中的serviceId，默认是configserver
+#  zipkin:
+#    base-url: http://localhost:9311
+#  sleuth:
+#    sampler:
+#      percentage: 1.0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:18761/eureka/,http://peer2:18762/eureka/

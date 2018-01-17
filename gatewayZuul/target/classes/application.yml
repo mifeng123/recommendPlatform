@@ -1,0 +1,62 @@
+#zuul高可用，用Nginx对外暴露一个URL，然后转发到Zuul服务
+#spring:
+#  application:
+#    name: gateway-zuul
+
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://peer1:18761/eureka/,http://peer2:18762/eureka/
+
+#访问http://localhost:19001/routes尝试有哪些微服务可用
+#zuul.ignored-services=discovery-eureka,hystrix-turbine,gateway-zuul,service-teacherspace-zuti
+#用properties时，*不能带引号
+#zuul:
+#  ignored-services: '*'
+#  routes:
+#    zuti:
+#      path: /zuti/**
+#      serviceId: service-teacherspace-zuti
+
+#配置单个服务hystrix超时
+#hystrix:
+#  command:
+#    service-teacherspace-zuti:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000
+
+#ribbon:
+#  ReadTimeout: 30000
+#  ConnectTimeout: 30000
+#  MaxAutoRetries: 0   #是否重连本机
+#  MaxAutoRetriesNextServer: 1
+
+#不设定无法访问http://localhost:19111/routes
+management:
+  security:
+    enabled: false
+
+#logging.level.com.netflix=DEBUG
+logging:
+  level:
+    com:
+      netflix: DEBUG
+    root: INFO
+    org.springframework.cloud.sleuth: DEBUG
+    # org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+---
+spring:
+  profiles: z1
+server:
+  port: 19111
+
+---
+spring:
+  profiles: z2
+server:
+  port: 19112
+
+

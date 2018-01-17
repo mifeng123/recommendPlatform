@@ -1,0 +1,17 @@
+server:
+  port: 30001
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://git.okjiaoyu.cn/data/recommendPlatform.git      # 配置Git仓库的地址
+          searchPaths: respo
+          username: wenzijuan                                     # Git仓库的账号
+          password: 12345678                                      # Git仓库的密码
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:18761/eureka/,http://peer2:18762/eureka/

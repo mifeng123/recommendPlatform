@@ -1,0 +1,53 @@
+spring:
+  application:
+    name:  discovery-eureka
+
+#如果要认证的话，所有注册的服务都需要加认证，因此暂时取消
+security:
+  basic:
+    enabled: false
+  user:
+    name: user
+    password: 123456
+
+#租期更新时间间隔（默认30秒）
+#eureka.instance.lease-renewal-interval-in-seconds=10
+#租期到期时间（默认90秒）不怕出错的话，时间可以更短
+#eureka.instance.lease-expiration-duration-in-seconds=30
+---
+spring:
+  profiles: peer1
+server:
+  port: 18761
+eureka:
+  server:
+    enable-replicated-request-compression: false #关闭自我保护，确保注册中心可以将不可用的实例正确剔除，否则客户端很可能拿到实际已经不存在的服务实例
+    eviction-interval-timer-in-ms: 30000 #清理间隔
+  instance:
+    hostname: peer1
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:18761/eureka/,http://peer2:18762/eureka/
+      #defaultZone: http://${security.user.name}:${security.user.password}@peer1:18761/eureka/,http://${security.user.name}:${security.user.password}@peer2:18762/eureka/
+    fetch-registry: true
+    healthcheck:
+      enabled: true  #开启健康检查（需要spring-boot-starter-actuator依赖）
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 18762
+eureka:
+  server:
+    enable-replicated-request-compression: false #关闭自我保护，确保注册中心可以将不可用的实例正确剔除，否则客户端很可能拿到实际已经不存在的服务实例
+    eviction-interval-timer-in-ms: 30000 #清理间隔
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:18761/eureka/,http://peer2:18762/eureka/
+      #defaultZone: http://${security.user.name}:${security.user.password}@peer1:18761/eureka/,http://${security.user.name}:${security.user.password}@peer2:18762/eureka/
+    fetch-registry: true
+    healthcheck:
+      enabled: true  #开启健康检查（需要spring-boot-starter-actuator依赖）

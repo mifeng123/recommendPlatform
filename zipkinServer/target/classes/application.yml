@@ -1,0 +1,14 @@
+server:
+  port: 9311
+
+#zipkin:
+#  storage:
+#    type: elasticsearch
+#    StorageComponent: elasticsearch
+#    elasticsearch:
+#      cluster: elasticsearch
+#      max-requests: 30
+#      index: zipkin
+#      index-shards: 3
+#      index-replicas: 1
+#      hosts: 10.60.0.90:9200

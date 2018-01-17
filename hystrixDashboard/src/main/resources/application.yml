@@ -1,0 +1,3 @@
+#http://localhost:19001/hystrix.stream
+server:
+  port: 8900

@@ -1,0 +1,4 @@
+com/okay/gatewayZuul/GatewayZuulApplication.class
+com/okay/gatewayZuul/fallback/ZutiFallbackProvider.class
+com/okay/gatewayZuul/fallback/ZutiFallbackProvider$1.class
+com/okay/gatewayZuul/filters/AccessFilter.class

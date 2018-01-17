@@ -1,0 +1,29 @@
+#spring-boot-starter-actuator中提供了/shutdown，服务启动后，可以通过linux的curl命令发送POST请求的方式优雅的停止服务。
+#curl -X POST host:port/shutdown
+
+endpoints:
+  shutdown:
+    enabled: true #启用shutdown
+    sensitive: false #禁用密码验证
+
+#不设定无法refresh，此版本refresh刷新未成功
+management:
+  security:
+    enabled: false
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.sleuth: DEBUG
+    # org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+---
+spring:
+  profiles: c1
+server:
+  port: 20001
+
+---
+spring:
+  profiles: c2
+server:
+  port: 20002
